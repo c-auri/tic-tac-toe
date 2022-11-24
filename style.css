@@ -1,0 +1,34 @@
+:root {
+    --ff-monospace: monospace;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+}
+
+main {
+    flex: 1;
+    display: grid;
+    place-items: center;
+}
+
+.board {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+}
+
+.cell {
+    cursor: pointer;
+    border: 1px solid black;
+    display: grid;
+    place-items: center;
+    font-family: var(--ff-monospace);
+    font-size: 3rem;
+}
+
+.cell--taken {
+    cursor: auto;
+}
