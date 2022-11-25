@@ -2,19 +2,19 @@ const board = (function() {
     const cells = Array(9)
     const initialize = () => cells.fill(null)
     const getCell = (id) => cells[id]
-    const markCell = (id, mark) => cells[id] = mark
+    const mark = (id, mark) => cells[id] = mark
     const isFull = () => cells.every(cell => !!cell)
 
-    return { initialize, getCell, markCell, isFull }
+    return { initialize, getCell, mark, isFull }
 })()
 
-const displayController = (function() {
+const display = (function() {
     const cells = [...document.querySelectorAll(".cell")]
     const newRound = document.querySelector('#new-round')
 
     newRound.addEventListener("click", () => {
-        newRound.classList.toggle("hidden")
-        gameController.reset()
+        newRound.classList.add("hidden")
+        game.reset()
         reset()
         update()
     })
@@ -24,7 +24,7 @@ const displayController = (function() {
             cell.textContent = ""
             cell.addEventListener("click", (e) => {
                 const id = e.target.getAttribute("data-id")
-                gameController.mark(id)
+                game.mark(id)
                 update()
             },
             { once: true })
@@ -37,26 +37,31 @@ const displayController = (function() {
             cell.textContent = board.getCell(id)
         }
 
-        if (gameController.isGameOver()) {
-            if (gameController.hasWinner()) {
-                console.log(gameController.getWinner().name + " won!")
+        if (game.isOver()) {
+            if (game.hasWinner()) {
+                console.log(game.getWinner().name + " won!")
             } else {
                 console.log("Draw!")
             }
 
-            console.log(gameController.getPlayer(1).score + " : " + gameController.getPlayer(2).score)
+            console.log(game.getPlayer(1).score + " : " + game.getPlayer(2).score)
 
-            newRound.classList.toggle("hidden")
+            newRound.classList.remove("hidden")
         }
     }
 
     return { reset, update, }
 })()
 
-const gameController = (function() {
+const game = (function() {
     let current = "X"
     let players = {}
     let winner = null
+
+    const getPlayer = (id) => players[id]
+    const createPlayer = (name, isX) => ({ name, mark: isX ? "X" : "O", score: 0 })
+    const isCurrent = (id) => getPlayer(id).mark === current
+    const getWinner = () => winner
 
     const winConditions = [
         // rows:
@@ -77,28 +82,24 @@ const gameController = (function() {
         (hasWinner, current) => isMet(current) ? true : hasWinner,
         false)
 
-    const isGameOver = () => hasWinner() || board.isFull()
-
-    const getWinner = () => winner
-    const getPlayer = (id) => players["player" + id]
-    const createPlayer = (name, isX) => ({ name, mark: isX ? "X" : "O", score: 0 })
+    const isOver = () => hasWinner() || board.isFull()
 
     const initialize = (name1, name2) => {
         const startPlayer = Math.round(Math.random(1)) + 1
         const player1 = createPlayer(name1, startPlayer === 1)
         const player2 = createPlayer(name2, startPlayer === 2)
-        players = { player1, player2 }
+        players = { "1": player1, "2": player2 }
         board.initialize()
     }
 
-    const isCurrent = (id) => getPlayer(id).mark === current
+    const toggle = (mark) => mark === "X" ? "O" : "X"
 
     const mark = (id) => {
-        if (isGameOver() || board.getCell(id)) {
+        if (isOver() || board.getCell(id)) {
             return
         }
 
-        board.markCell(id, current)
+        board.mark(id, current)
 
         if (hasWinner()) {
             winner = getPlayer(1).mark === current ? getPlayer(1) : getPlayer(2)
@@ -108,12 +109,10 @@ const gameController = (function() {
         }
     }
 
-    const toggle = (mark) => mark === "X" ? "O" : "X"
-
     const reset = () => {
         board.initialize()
         for (let i = 1; i <= 2; i++) {
-            players["player" + i].mark = toggle(players["player" + i].mark)
+            players[i].mark = toggle(players[i].mark)
         }
     }
 
@@ -123,11 +122,11 @@ const gameController = (function() {
         getPlayer,
         isCurrent,
         mark,
-        isGameOver,
+        isOver,
         hasWinner,
         getWinner,
     }
 })()
 
-gameController.initialize("player1", "player2")
-displayController.reset()
+game.initialize("player1", "player2")
+display.reset()
