@@ -13,9 +13,11 @@ const displayController = (function() {
         for (const cell of cells) {
             cell.textContent = ""
             cell.addEventListener("click", (e) => {
-                const id = e.target.getAttribute("data-id")
-                gameController.mark(id)
-                update()
+                if (!gameController.hasWinner()) {
+                    const id = e.target.getAttribute("data-id")
+                    gameController.mark(id)
+                    update()
+                }
             },
             { once: true })
         }
@@ -26,6 +28,11 @@ const displayController = (function() {
             const id = cell.getAttribute('data-id')
             cell.textContent = board.getCell(id)
         }
+
+        if (gameController.hasWinner()) {
+            console.log(gameController.getWinner().name + " won!")
+            console.log(gameController.getPlayer(1).score + " : " + gameController.getPlayer(2).score)
+        }
     }
 
     return { initialize, update, }
@@ -34,7 +41,28 @@ const displayController = (function() {
 const gameController = (function() {
     let current = "X"
     let players = {}
+    let winner = null
 
+    const winConditions = [
+        // rows:
+        [ 0, 1, 2 ], [ 3, 4, 5 ], [ 6, 7, 8 ],
+
+        // columns:
+        [ 0, 3, 6 ], [ 1, 4, 7 ], [ 2, 5, 8 ],
+
+        // diagonals:
+        [ 0, 4, 8 ], [ 2, 4, 6 ],
+    ]
+
+    const isMet = (windCondition) => !!windCondition.reduce(
+        (previousCell, id) => previousCell === board.getCell(id) ? previousCell : false,
+        board.getCell(windCondition[0]))
+
+    const hasWinner = () => winConditions.reduce(
+        (hasWinner, current) => isMet(current) ? true : hasWinner,
+        false)
+
+    const getWinner = () => winner
     const getPlayer = (id) => players["player" + id]
     const createPlayer = (name, isX) => ({ name, mark: isX ? "X" : "O", score: 0 })
 
@@ -49,10 +77,15 @@ const gameController = (function() {
 
     const mark = (id) => {
         board.markCell(id, current)
-        current = current === "X" ? "O" : "X"
+        if (hasWinner()) {
+            winner = getPlayer(1).mark === current ? getPlayer(1) : getPlayer(2)
+            winner.score++
+        } else {
+            current = current === "X" ? "O" : "X"
+        }
     }
 
-    return { initialize, getPlayer, isCurrent, mark, }
+    return { initialize, getPlayer, isCurrent, mark, hasWinner, getWinner }
 })()
 
 gameController.initialize("player1", "player2")
