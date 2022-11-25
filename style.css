@@ -19,18 +19,19 @@ main {
 }
 
 .board {
-    border: 1px solid black;
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
+    gap: 2px;
+    background-color: black;
 }
 
 .cell {
     cursor: pointer;
-    border: 1px solid black;
     display: grid;
     place-items: center;
     font-size: 3rem;
+    background-color: white;
 }
 
 .cell--taken {
