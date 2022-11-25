@@ -24,10 +24,8 @@ const displayController = (function() {
             cell.textContent = ""
             cell.addEventListener("click", (e) => {
                 const id = e.target.getAttribute("data-id")
-                if (!gameController.hasWinner() && !board.getCell(id)) {
-                    gameController.mark(id)
-                    update()
-                }
+                gameController.mark(id)
+                update()
             },
             { once: true })
         }
@@ -96,7 +94,12 @@ const gameController = (function() {
     const isCurrent = (id) => getPlayer(id).mark === current
 
     const mark = (id) => {
+        if (isGameOver() || board.getCell(id)) {
+            return
+        }
+
         board.markCell(id, current)
+
         if (hasWinner()) {
             winner = getPlayer(1).mark === current ? getPlayer(1) : getPlayer(2)
             winner.score++
