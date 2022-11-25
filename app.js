@@ -19,7 +19,27 @@ const display = (function() {
         update()
     })
 
+    const setNames = () => {
+        for (let i = 1; i <= 2; i++) {
+            document.querySelector("#name-" + i).textContent = game.getPlayer(i).name
+        }
+    }
+
+    const updateMarks = () => {
+        for (let i = 1; i <= 2; i++) {
+            document.querySelector("#mark-" + i).textContent = game.getPlayer(i).mark
+        }
+    }
+
+    const updateScores = () => {
+        for (let i = 1; i <= 2; i++) {
+            document.querySelector("#score-" + i).textContent = game.getPlayer(i).score
+        }
+    }
+
     const reset = () => {
+        setNames()
+
         for (const cell of cells) {
             cell.textContent = ""
             cell.addEventListener("click", (e) => {
@@ -44,7 +64,8 @@ const display = (function() {
                 console.log("Draw!")
             }
 
-            console.log(game.getPlayer(1).score + " : " + game.getPlayer(2).score)
+            updateMarks()
+            updateScores()
 
             newRound.classList.remove("hidden")
         }

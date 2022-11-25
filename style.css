@@ -43,6 +43,50 @@ main {
     cursor: auto;
 }
 
+.info {
+    display: flex;
+    justify-content: center;
+}
+
+.game-score {
+    position: relative;
+    width: 18rem;
+    display: grid;
+    grid-template-columns: 1fr auto auto auto 1fr;
+    gap: 1rem;
+    color: #999;
+}
+
+.name,
+.score {
+    color :black;
+}
+
+.name {
+    z-index: 1;
+    font-weight: bold;
+}
+
+#name-1 {
+    text-align: right;
+}
+
+.mark {
+    position: absolute;
+    bottom: -1.5rem;
+    z-index: 0;
+    line-height: 3rem;
+    font-size: 3rem;
+}
+
+#mark-1 {
+    left: 0;
+}
+
+#mark-2 {
+    right: 0;
+}
+
 #new-round {
     all: unset;
     cursor: pointer;
