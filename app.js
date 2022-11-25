@@ -3,7 +3,7 @@ const board = (function() {
     const getCell = (id) => cells[id]
     const markCell = (id, mark) => cells[id] = mark
 
-    return { getCell, markCell, }
+    return { getCell, markCell }
 })()
 
 const displayController = (function() {
@@ -32,15 +32,28 @@ const displayController = (function() {
 })()
 
 const gameController = (function() {
-    let current = 0
-    const players = []
-    const addPlayer = (name, mark) => players.push({ name, mark })
-    const mark = (id) => {
-        board.markCell(id, players[current].mark)
-        current = (current + 1) % 2
+    let current = "X"
+    let players = {}
+
+    const getPlayer = (id) => players["player" + id]
+    const createPlayer = (name, isX) => ({ name, mark: isX ? "X" : "O", score: 0 })
+
+    const initialize = (name1, name2) => {
+        const startPlayer = Math.round(Math.random(1)) + 1
+        const player1 = createPlayer(name1, startPlayer === 1)
+        const player2 = createPlayer(name2, startPlayer === 2)
+        players = { player1, player2 }
     }
 
-    return { addPlayer, mark, }
+    const isCurrent = (id) => getPlayer(id).mark === current
+
+    const mark = (id) => {
+        board.markCell(id, current)
+        current = current === "X" ? "O" : "X"
+    }
+
+    return { initialize, getPlayer, isCurrent, mark, }
 })()
 
+gameController.initialize("player1", "player2")
 displayController.initialize()

@@ -2,7 +2,12 @@
     --ff-monospace: monospace;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
+    font-family: var(--ff-monospace);
     min-height: 100vh;
     display: flex;
 }
@@ -25,7 +30,6 @@ main {
     border: 1px solid black;
     display: grid;
     place-items: center;
-    font-family: var(--ff-monospace);
     font-size: 3rem;
 }
 
