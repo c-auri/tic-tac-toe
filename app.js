@@ -2,8 +2,9 @@ const board = (function() {
     const cells = Array(9).fill(null)
     const getCell = (id) => cells[id]
     const markCell = (id, mark) => cells[id] = mark
+    const isFull = () => cells.every(cell => !!cell)
 
-    return { getCell, markCell }
+    return { getCell, markCell, isFull }
 })()
 
 const displayController = (function() {
@@ -29,8 +30,13 @@ const displayController = (function() {
             cell.textContent = board.getCell(id)
         }
 
-        if (gameController.hasWinner()) {
-            console.log(gameController.getWinner().name + " won!")
+        if (gameController.isGameOver()) {
+            if (gameController.hasWinner()) {
+                console.log(gameController.getWinner().name + " won!")
+            } else {
+                console.log("Draw!")
+            }
+
             console.log(gameController.getPlayer(1).score + " : " + gameController.getPlayer(2).score)
         }
     }
@@ -62,6 +68,8 @@ const gameController = (function() {
         (hasWinner, current) => isMet(current) ? true : hasWinner,
         false)
 
+    const isGameOver = () => hasWinner() || board.isFull()
+
     const getWinner = () => winner
     const getPlayer = (id) => players["player" + id]
     const createPlayer = (name, isX) => ({ name, mark: isX ? "X" : "O", score: 0 })
@@ -85,7 +93,7 @@ const gameController = (function() {
         }
     }
 
-    return { initialize, getPlayer, isCurrent, mark, hasWinner, getWinner }
+    return { initialize, getPlayer, isCurrent, mark, isGameOver, hasWinner, getWinner }
 })()
 
 gameController.initialize("player1", "player2")
