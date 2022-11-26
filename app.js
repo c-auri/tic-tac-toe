@@ -25,6 +25,10 @@ const display = (function() {
         }
     }
 
+    const setCurrent = () => {
+        document.querySelector("#marker-" + game.getCurrent()).classList.add("current")
+    }
+
     const updateMarks = () => {
         for (let i = 1; i <= 2; i++) {
             document.querySelector("#marker-" + i).textContent = game.getPlayer(i).marker
@@ -37,8 +41,15 @@ const display = (function() {
         }
     }
 
+    const updateMarkers = () => {
+        for (let i = 1; i <= 2; i++) {
+            document.querySelector("#marker-" + i).classList.toggle("current")
+        }
+    }
+
     const initialize = () => {
         setNames()
+        setCurrent()
         updateMarks()
         updateScores()
 
@@ -53,6 +64,8 @@ const display = (function() {
     }
 
     const update = () => {
+        updateMarkers()
+
         for (const cell of cells) {
             const id = cell.getAttribute('data-id')
             cell.textContent = board.getCell(id)
@@ -72,8 +85,9 @@ const game = (function() {
     let players = {}
     let winner = null
 
-    const getPlayer = (id) => players[id]
     const createPlayer = (name, isX) => ({ name, marker: isX ? "X" : "O", score: 0 })
+    const getPlayer = (id) => players[id]
+    const getCurrent = () => current
     const getWinner = () => winner
 
     const winConditions = [
@@ -130,6 +144,7 @@ const game = (function() {
     return {
         initialize,
         reset,
+        getCurrent,
         getPlayer,
         mark,
         isOver,
