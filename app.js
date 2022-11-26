@@ -75,7 +75,7 @@ const display = (function() {
 })()
 
 const game = (function() {
-    let current = "X"
+    let current = null
     let players = {}
     let winner = null
 
@@ -105,35 +105,32 @@ const game = (function() {
     const isOver = () => hasWinner() || board.isFull()
 
     const initialize = (name1, name2) => {
-        const startPlayer = Math.round(Math.random(1)) + 1
-        const player1 = createPlayer(name1, startPlayer === 1)
-        const player2 = createPlayer(name2, startPlayer === 2)
+        current = Math.round(Math.random(1)) + 1
+        const player1 = createPlayer(name1, current === 1)
+        const player2 = createPlayer(name2, current === 2)
         players = { "1": player1, "2": player2 }
         board.initialize()
     }
-
-    const toggle = (marker) => marker === "X" ? "O" : "X"
 
     const mark = (id) => {
         if (isOver() || board.getCell(id)) {
             return
         }
 
-        board.mark(id, current)
+        board.mark(id, players[current].marker)
 
         if (hasWinner()) {
-            winner = getPlayer(1).marker === current ? getPlayer(1) : getPlayer(2)
+            winner = players[current]
             winner.score++
-            current = "X"
-        } else {
-            current = toggle(current)
         }
+
+        current = current === 1 ? 2 : 1
     }
 
     const reset = () => {
         board.initialize()
         for (let i = 1; i <= 2; i++) {
-            players[i].marker = toggle(players[i].marker)
+            players[i].marker = players[i].marker === "X" ? "O" : "X"
         }
     }
 
