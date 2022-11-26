@@ -15,7 +15,7 @@ const display = (function() {
     newRound.addEventListener("click", () => {
         newRound.classList.add("hidden")
         game.reset()
-        reset()
+        updateMarks()
         update()
     })
 
@@ -37,8 +37,10 @@ const display = (function() {
         }
     }
 
-    const reset = () => {
+    const initialize = () => {
         setNames()
+        updateMarks()
+        updateScores()
 
         for (const cell of cells) {
             cell.textContent = ""
@@ -46,8 +48,7 @@ const display = (function() {
                 const id = e.target.getAttribute("data-id")
                 game.mark(id)
                 update()
-            },
-            { once: true })
+            })
         }
     }
 
@@ -64,14 +65,13 @@ const display = (function() {
                 console.log("Draw!")
             }
 
-            updateMarks()
             updateScores()
 
             newRound.classList.remove("hidden")
         }
     }
 
-    return { reset, update, }
+    return { initialize, update, }
 })()
 
 const game = (function() {
@@ -125,6 +125,7 @@ const game = (function() {
         if (hasWinner()) {
             winner = getPlayer(1).mark === current ? getPlayer(1) : getPlayer(2)
             winner.score++
+            current = "X"
         } else {
             current = toggle(current)
         }
@@ -150,4 +151,4 @@ const game = (function() {
 })()
 
 game.initialize("player1", "player2")
-display.reset()
+display.initialize()
