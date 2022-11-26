@@ -13,17 +13,22 @@ footer {
     display: grid;
     place-items: center;
     align-content: center;
-    gap: 1rem;
-}
-
-header {
-    margin: 1rem 0;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
+    grid-template-rows: 25% 50% 25%;
+    gap: 4rem;
     font-family: var(--ff-monospace);
+}
+
+header {
+    align-self: end;
+}
+
+footer {
+    align-self: start;
 }
 
 h1 {
@@ -33,7 +38,6 @@ h1 {
 }
 
 .board {
-    margin: 2rem 0;
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
