@@ -59,14 +59,7 @@ const display = (function() {
         }
 
         if (game.isOver()) {
-            if (game.hasWinner()) {
-                console.log(game.getWinner().name + " won!")
-            } else {
-                console.log("Draw!")
-            }
-
             updateScores()
-
             newRound.classList.remove("hidden")
         }
     }
