@@ -81,7 +81,6 @@ const game = (function() {
 
     const getPlayer = (id) => players[id]
     const createPlayer = (name, isX) => ({ name, marker: isX ? "X" : "O", score: 0 })
-    const isCurrent = (id) => getPlayer(id).marker === current
     const getWinner = () => winner
 
     const winConditions = [
@@ -142,7 +141,6 @@ const game = (function() {
         initialize,
         reset,
         getPlayer,
-        isCurrent,
         mark,
         isOver,
         hasWinner,
