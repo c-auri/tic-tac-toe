@@ -2,7 +2,7 @@ const board = (function() {
     const cells = Array(9)
     const initialize = () => cells.fill(null)
     const getCell = (id) => cells[id]
-    const mark = (id, mark) => cells[id] = mark
+    const mark = (id, marker) => cells[id] = marker
     const isFull = () => cells.every(cell => !!cell)
 
     return { initialize, getCell, mark, isFull }
@@ -27,7 +27,7 @@ const display = (function() {
 
     const updateMarks = () => {
         for (let i = 1; i <= 2; i++) {
-            document.querySelector("#mark-" + i).textContent = game.getPlayer(i).mark
+            document.querySelector("#marker-" + i).textContent = game.getPlayer(i).marker
         }
     }
 
@@ -80,8 +80,8 @@ const game = (function() {
     let winner = null
 
     const getPlayer = (id) => players[id]
-    const createPlayer = (name, isX) => ({ name, mark: isX ? "X" : "O", score: 0 })
-    const isCurrent = (id) => getPlayer(id).mark === current
+    const createPlayer = (name, isX) => ({ name, marker: isX ? "X" : "O", score: 0 })
+    const isCurrent = (id) => getPlayer(id).marker === current
     const getWinner = () => winner
 
     const winConditions = [
@@ -113,7 +113,7 @@ const game = (function() {
         board.initialize()
     }
 
-    const toggle = (mark) => mark === "X" ? "O" : "X"
+    const toggle = (marker) => marker === "X" ? "O" : "X"
 
     const mark = (id) => {
         if (isOver() || board.getCell(id)) {
@@ -123,7 +123,7 @@ const game = (function() {
         board.mark(id, current)
 
         if (hasWinner()) {
-            winner = getPlayer(1).mark === current ? getPlayer(1) : getPlayer(2)
+            winner = getPlayer(1).marker === current ? getPlayer(1) : getPlayer(2)
             winner.score++
             current = "X"
         } else {
@@ -134,7 +134,7 @@ const game = (function() {
     const reset = () => {
         board.initialize()
         for (let i = 1; i <= 2; i++) {
-            players[i].mark = toggle(players[i].mark)
+            players[i].marker = toggle(players[i].marker)
         }
     }
 

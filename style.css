@@ -71,7 +71,7 @@ main {
     text-align: right;
 }
 
-.mark {
+.marker {
     position: absolute;
     bottom: -1.5rem;
     z-index: 0;
@@ -79,11 +79,11 @@ main {
     font-size: 3rem;
 }
 
-#mark-1 {
+#marker-1 {
     left: 0;
 }
 
-#mark-2 {
+#marker-2 {
     right: 0;
 }
 
