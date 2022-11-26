@@ -10,13 +10,33 @@ const board = (function() {
 
 const display = (function() {
     const cells = [...document.querySelectorAll(".cell")]
-    const newRound = document.querySelector('#new-round')
+    const secPlayerCreation = document.querySelector(".player-creation")
+    const secBoard = document.querySelector(".board")
+    const secGameScore = document.querySelector(".game-score")
+    const btnNewRound = document.querySelector('#new-round')
+    const btnStartGame = document.querySelector("#start-game")
 
-    newRound.addEventListener("click", () => {
-        newRound.classList.add("hidden")
+    toggleHidden = (...elements) => {
+        for (const element of elements) {
+            element.classList.toggle("hidden")
+        }
+    }
+
+    btnStartGame.addEventListener("click", () => {
+        const inputName1 =  document.querySelector("#input-name-1")
+        const inputName2 = document.querySelector("#input-name-2")
+        const name1 = inputName1.value.length > 0 ? inputName1.value : inputName1.placeholder
+        const name2 = inputName2.value.length > 0 ? inputName2.value : inputName2.placeholder
+        console.log(name1, name2)
+        game.initialize(name1, name2)
+        startGame()
+    })
+
+    btnNewRound.addEventListener("click", () => {
         game.reset()
         updateMarks()
         update()
+        toggleHidden(btnNewRound)
     })
 
     const setNames = () => {
@@ -47,7 +67,9 @@ const display = (function() {
         }
     }
 
-    const initialize = () => {
+    const startGame = () => {
+        toggleHidden(btnStartGame, secPlayerCreation, secBoard, secGameScore)
+
         setNames()
         setCurrent()
         updateMarks()
@@ -73,11 +95,11 @@ const display = (function() {
 
         if (game.isOver()) {
             updateScores()
-            newRound.classList.remove("hidden")
+            btnNewRound.classList.remove("hidden")
         }
     }
 
-    return { initialize, update, }
+    return { startGame, update, }
 })()
 
 const game = (function() {
@@ -152,6 +174,3 @@ const game = (function() {
         getWinner,
     }
 })()
-
-game.initialize("player1", "player2")
-display.initialize()

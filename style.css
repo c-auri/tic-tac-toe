@@ -29,12 +29,42 @@ header {
 
 footer {
     align-self: start;
+    display: grid;
+    gap: 3rem;
 }
 
 h1 {
     margin: 0;
     font-size: 2rem;
     font-weight: bold;
+}
+
+.player-creation {
+    display: grid;
+    gap: 1rem;
+}
+
+.player-input {
+    display: grid;
+    gap: .25rem;
+}
+
+label {
+    font-size: .8rem;
+    letter-spacing: .125rem;
+}
+
+input[type="text"] {
+    border: 0;
+    border-bottom: 1px solid #999;
+    width: 16rem;
+    line-height: 2rem;
+    font-family: var(--ff-monospace);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: black;
 }
 
 .board {
@@ -55,14 +85,6 @@ h1 {
 
 .cell--taken {
     cursor: auto;
-}
-
-.info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
 }
 
 .game-score {
@@ -117,9 +139,14 @@ h1 {
 
 .controls {
     height: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
 }
 
-#new-round {
+button {
     all: unset;
     cursor: pointer;
     font-size: .8rem;
@@ -127,7 +154,7 @@ h1 {
     color: #999;
 }
 
-#new-round:hover {
+button:hover {
     font-size: .9rem;
 }
 

@@ -13,7 +13,19 @@
         <h1>Tic Tac Toe</h1>
     </header>
     <main>
-        <section class="board">
+
+        <section class="player-creation">
+            <div class="player-input">
+                <label for="player-1">Name of Player 1:</label>
+                <input type="text" name="input-name-1" id="input-name-1" placeholder="Player 1">
+            </div>
+            <div class="player-input">
+                <label for="player-1">Name of Player 2:</label>
+                <input type="text" name="input-name-2" id="input-name-2" placeholder="Player 2">
+            </div>
+        </section>
+
+        <section class="board hidden">
             <span class="cell" data-id="0"></span>
             <span class="cell" data-id="1"></span>
             <span class="cell" data-id="2"></span>
@@ -24,21 +36,22 @@
             <span class="cell" data-id="7"></span>
             <span class="cell" data-id="8"></span>
         </section>
+
     </main>
     <footer>
-        <section class="info">
-            <p class="game-score">
-                <span class="marker" id="marker-1"></span>
-                <span class="name" id="name-1"></span>
-                <span class="score" id="score-1"></span>
-                <span>:</span>
-                <span class="score" id="score-2"></span>
-                <span class="name" id="name-2"></span>
-                <span class="marker" id="marker-2"></span>
-            </p>
-            <secion class="controls">
-                <button class="hidden" id="new-round">new round</button>
-            </secion>
+        <section class="game-score hidden">
+            <span class="marker" id="marker-1"></span>
+            <span class="name" id="name-1"></span>
+            <span class="score" id="score-1"></span>
+            <span>:</span>
+            <span class="score" id="score-2"></span>
+            <span class="name" id="name-2"></span>
+            <span class="marker" id="marker-2"></span>
+        </section>
+        <secion class="controls">
+            <button id="start-game">start game</button>
+            <button class="hidden" id="new-round">new round</button>
+        </secion>
     </footer>
 </body>
 </html>
