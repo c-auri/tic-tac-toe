@@ -9,12 +9,11 @@ const board = (function() {
 })()
 
 const display = (function() {
+    const secPlayerCreation = document.querySelector(".sec-player-creation")
+    const secGame = document.querySelector(".sec-game")
+    const btnStartGame = document.querySelector("#btn-start-game")
+    const btnNewRound = document.querySelector('#btn-new-round')
     const cells = [...document.querySelectorAll(".cell")]
-    const secPlayerCreation = document.querySelector(".player-creation")
-    const secBoard = document.querySelector(".board")
-    const secGameScore = document.querySelector(".game-score")
-    const btnNewRound = document.querySelector('#new-round')
-    const btnStartGame = document.querySelector("#start-game")
 
     toggleHidden = (...elements) => {
         for (const element of elements) {
@@ -22,12 +21,12 @@ const display = (function() {
         }
     }
 
-    btnStartGame.addEventListener("click", () => {
+    btnStartGame.addEventListener("click", (e) => {
+        e.preventDefault()
         const inputName1 =  document.querySelector("#input-name-1")
         const inputName2 = document.querySelector("#input-name-2")
         const name1 = inputName1.value.length > 0 ? inputName1.value : inputName1.placeholder
         const name2 = inputName2.value.length > 0 ? inputName2.value : inputName2.placeholder
-        console.log(name1, name2)
         game.initialize(name1, name2)
         startGame()
     })
@@ -46,7 +45,7 @@ const display = (function() {
     }
 
     const setCurrent = () => {
-        document.querySelector("#marker-" + game.getCurrent()).classList.add("current")
+        document.querySelector("#name-" + game.getCurrent()).classList.add("current")
     }
 
     const updateMarks = () => {
@@ -61,14 +60,14 @@ const display = (function() {
         }
     }
 
-    const updateMarkers = () => {
+    const updateCurrent = () => {
         for (let i = 1; i <= 2; i++) {
-            document.querySelector("#marker-" + i).classList.toggle("current")
+            document.querySelector("#name-" + i).classList.toggle("current")
         }
     }
 
     const startGame = () => {
-        toggleHidden(btnStartGame, secPlayerCreation, secBoard, secGameScore)
+        toggleHidden(btnStartGame, secPlayerCreation, secGame)
 
         setNames()
         setCurrent()
@@ -86,7 +85,7 @@ const display = (function() {
     }
 
     const update = () => {
-        updateMarkers()
+        updateCurrent()
 
         for (const cell of cells) {
             const id = cell.getAttribute('data-id')

@@ -6,55 +6,53 @@
     box-sizing: border-box;
 }
 
-body,
-header,
-main,
-footer {
-    display: grid;
-    place-items: center;
-    align-content: center;
-}
 
 body {
     margin: 0;
     min-height: 100vh;
-    grid-template-rows: 25% 50% 25%;
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     font-family: var(--ff-monospace);
 }
 
 header {
-    align-self: end;
+    height: 10rem;
+    display: grid;
+    place-items: center;
 }
 
-footer {
-    align-self: start;
-    display: grid;
-    gap: 3rem;
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
 }
 
 h1 {
-    margin: 0;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
 }
 
 .player-creation {
     display: grid;
-    gap: 1rem;
+    gap: 2rem;
 }
 
-.player-input {
+.form-field {
     display: grid;
-    gap: .25rem;
 }
 
 label {
+    color: #999;
+    font-weight: bold;
     font-size: .8rem;
     letter-spacing: .125rem;
 }
 
 input[type="text"] {
+    padding: 0;
     border: 0;
     border-bottom: 1px solid #999;
     width: 16rem;
@@ -67,10 +65,66 @@ input[type="text"]:focus {
     border-color: black;
 }
 
+#btn-start-game,
+#btn-new-round {
+    margin: 2rem auto;
+    align-self: center;
+}
+
+.sec-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.game-state {
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto 1fr auto;
+    gap: 1rem;
+    font-size: 1.2rem;
+    color :black;
+}
+
+.name {
+    font-weight: bold;
+    position: relative;
+}
+
+#name-1 {
+    text-align: right;
+}
+
+.marker {
+    color: #666;
+}
+
+.marker::before {
+    content: '(';
+}
+
+.marker::after {
+    content: ')';
+}
+
+.name.current::after {
+    content: '^';
+    position: absolute;
+    bottom: -1.5rem;
+    right: 0;
+}
+
+#name-2.current::after {
+    right: unset;
+    left: 0;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
+    justify-content: center;
     gap: 2px;
     background-color: black;
 }
@@ -85,65 +139,6 @@ input[type="text"]:focus {
 
 .cell--taken {
     cursor: auto;
-}
-
-.game-score {
-    position: relative;
-    width: 18rem;
-    display: grid;
-    grid-template-columns: 1fr auto auto auto 1fr;
-    gap: 1rem;
-    color: #999;
-}
-
-.name,
-.score {
-    color :black;
-}
-
-.name {
-    z-index: 1;
-    font-weight: bold;
-}
-
-#name-1 {
-    text-align: right;
-}
-
-.marker {
-    position: absolute;
-    bottom: -1.5rem;
-    z-index: 0;
-    line-height: 3rem;
-    font-size: 3rem;
-}
-
-#marker-1 {
-    left: 0;
-}
-
-#marker-2 {
-    right: 0;
-}
-
-.marker.current::after {
-    content: "^";
-    position: absolute;
-    bottom: -2.75rem;
-    left: 0;
-    width: 100%;
-    line-height: 3rem;
-    font-size: 2rem;
-    text-align: center;
-}
-
-.controls {
-    height: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
 }
 
 button {

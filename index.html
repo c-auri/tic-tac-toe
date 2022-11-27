@@ -14,44 +14,52 @@
     </header>
     <main>
 
-        <section class="player-creation">
-            <div class="player-input">
-                <label for="player-1">Name of Player 1:</label>
-                <input type="text" name="input-name-1" id="input-name-1" placeholder="Player 1">
-            </div>
-            <div class="player-input">
-                <label for="player-1">Name of Player 2:</label>
-                <input type="text" name="input-name-2" id="input-name-2" placeholder="Player 2">
-            </div>
+        <section class="sec-player-creation">
+            <form class="player-creation">
+
+                <div class="form-field">
+                    <label for="player-1">Name of Player 1:</label>
+                    <input type="text" name="input-name-1" id="input-name-1" placeholder="Player 1" maxlength="10">
+                </div>
+
+                <div class="form-field">
+                    <label for="player-1">Name of Player 2:</label>
+                    <input type="text" name="input-name-2" id="input-name-2" placeholder="Player 2" maxlength="10">
+                </div>
+
+                <button id="btn-start-game">start game</button>
+
+            </form>
         </section>
 
-        <section class="board hidden">
-            <span class="cell" data-id="0"></span>
-            <span class="cell" data-id="1"></span>
-            <span class="cell" data-id="2"></span>
-            <span class="cell" data-id="3"></span>
-            <span class="cell" data-id="4"></span>
-            <span class="cell" data-id="5"></span>
-            <span class="cell" data-id="6"></span>
-            <span class="cell" data-id="7"></span>
-            <span class="cell" data-id="8"></span>
+        <section class="sec-game hidden">
+
+            <div class="game-state">
+                <span class="marker" id="marker-1"></span>
+                <span class="name" id="name-1"></span>
+                <span class="score" id="score-1"></span>
+                <span>:</span>
+                <span class="score" id="score-2"></span>
+                <span class="name" id="name-2"></span>
+                <span class="marker" id="marker-2"></span>
+            </div>
+
+            <div class="board">
+                <span class="cell" data-id="0"></span>
+                <span class="cell" data-id="1"></span>
+                <span class="cell" data-id="2"></span>
+                <span class="cell" data-id="3"></span>
+                <span class="cell" data-id="4"></span>
+                <span class="cell" data-id="5"></span>
+                <span class="cell" data-id="6"></span>
+                <span class="cell" data-id="7"></span>
+                <span class="cell" data-id="8"></span>
+            </div>
+
+            <button class="hidden" id="btn-new-round">new round</button>
+
         </section>
 
     </main>
-    <footer>
-        <section class="game-score hidden">
-            <span class="marker" id="marker-1"></span>
-            <span class="name" id="name-1"></span>
-            <span class="score" id="score-1"></span>
-            <span>:</span>
-            <span class="score" id="score-2"></span>
-            <span class="name" id="name-2"></span>
-            <span class="marker" id="marker-2"></span>
-        </section>
-        <secion class="controls">
-            <button id="start-game">start game</button>
-            <button class="hidden" id="new-round">new round</button>
-        </secion>
-    </footer>
 </body>
 </html>
