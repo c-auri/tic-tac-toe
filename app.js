@@ -28,7 +28,7 @@ const display = (function() {
         const name1 = inputName1.value.length > 0 ? inputName1.value : inputName1.placeholder
         const name2 = inputName2.value.length > 0 ? inputName2.value : inputName2.placeholder
         game.initialize(name1, name2)
-        startGame()
+        showBoard()
     })
 
     btnNewRound.addEventListener("click", () => {
@@ -66,7 +66,7 @@ const display = (function() {
         }
     }
 
-    const startGame = () => {
+    const showBoard = () => {
         toggleHidden(btnStartGame, secGameSettings, secGame)
 
         setNames()
@@ -97,8 +97,6 @@ const display = (function() {
             btnNewRound.classList.remove("hidden")
         }
     }
-
-    return { startGame, update, }
 })()
 
 const game = (function() {
