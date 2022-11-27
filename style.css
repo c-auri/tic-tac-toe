@@ -1,4 +1,9 @@
 :root {
+    --clr-white: white;
+    --clr-black: black;
+    --clr-light-gray: #ccc;
+    --clr-medium-gray: #999;
+    --clr-dark-gray: #666;
     --ff-monospace: monospace;
 }
 
@@ -36,7 +41,7 @@ h1 {
 }
 
 .game-settings {
-    border: 1px solid #666;
+    border: 1px solid var(--clr-dark-gray);
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
@@ -60,7 +65,7 @@ input[type="radio"] + label {
 input:checked + label {
     font-weight: bold;
     color: black;
-    background-color: white;
+    background-color: var(--clr-white);
 }
 
 #pvp:checked ~ #field-difficulty {
@@ -78,7 +83,7 @@ input:checked + label {
 }
 
 .form-field label {
-    color: #999;
+    color: var(--clr-medium-gray);
     font-weight: bold;
     font-size: .8rem;
     letter-spacing: .125rem;
@@ -87,7 +92,7 @@ input:checked + label {
 input[type="text"] {
     padding: 0;
     border: 0;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid var(--clr-medium-gray);
     width: 16rem;
     line-height: 2rem;
     font-family: var(--ff-monospace);
@@ -95,7 +100,7 @@ input[type="text"] {
 
 input[type="text"]:focus {
     outline: none;
-    border-color: black;
+    border-color: var(--clr-black);
 }
 
 select {
@@ -105,7 +110,7 @@ select {
     padding: .5rem;
     width: 16rem;
     font-size: 1rem;
-    color: #666;
+    color: var(--clr-dark-gray);
 }
 
 #btn-start-game {
@@ -132,7 +137,7 @@ select {
     grid-template-columns: auto 1fr auto auto auto 1fr auto;
     gap: 1rem;
     font-size: 1.2rem;
-    color :black;
+    color: var(--clr-black);
 }
 
 .name {
@@ -145,7 +150,7 @@ select {
 }
 
 .marker {
-    color: #666;
+    color: var(--clr-dark-gray);
 }
 
 .marker::before {
@@ -174,7 +179,7 @@ select {
     grid-template-rows: repeat(3, 100px);
     justify-content: center;
     gap: 2px;
-    background-color: black;
+    background-color: var(--clr-black);
 }
 
 .cell {
@@ -182,7 +187,7 @@ select {
     display: grid;
     place-items: center;
     font-size: 3rem;
-    background-color: white;
+    background-color: var(--clr-white);
 }
 
 .cell--taken {
@@ -194,7 +199,7 @@ button {
     cursor: pointer;
     font-size: .8rem;
     font-weight: bold;
-    color: #999;
+    color: var(--clr-medium-gray);
 }
 
 button:hover {
