@@ -9,7 +9,7 @@ const board = (function() {
 })()
 
 const display = (function() {
-    const secPlayerCreation = document.querySelector(".sec-player-creation")
+    const secGameSettings = document.querySelector(".sec-game-settings")
     const secGame = document.querySelector(".sec-game")
     const btnStartGame = document.querySelector("#btn-start-game")
     const btnNewRound = document.querySelector('#btn-new-round')
@@ -67,7 +67,7 @@ const display = (function() {
     }
 
     const startGame = () => {
-        toggleHidden(btnStartGame, secPlayerCreation, secGame)
+        toggleHidden(btnStartGame, secGameSettings, secGame)
 
         setNames()
         setCurrent()

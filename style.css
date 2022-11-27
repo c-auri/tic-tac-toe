@@ -35,16 +35,49 @@ h1 {
     font-weight: bold;
 }
 
-.player-creation {
+.game-settings {
+    border: 1px solid #666;
     display: grid;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 4rem 0;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    cursor: pointer;
+    width: 100%;
+    padding: .5rem 1rem;
+    letter-spacing: normal;
+    font-weight: 400;
+    color: #ccc;
+    background-color: #666;
+}
+
+input:checked + label {
+    font-weight: bold;
+    color: black;
+    background-color: white;
+}
+
+#pvp:checked ~ #field-difficulty {
+    display: none;
+}
+
+#pvc:checked ~ #field-player-2 {
+    display: none;
 }
 
 .form-field {
+    height: 4rem;
+    grid-column: span 2;
     display: grid;
 }
 
-label {
+.form-field label {
     color: #999;
     font-weight: bold;
     font-size: .8rem;
@@ -65,9 +98,24 @@ input[type="text"]:focus {
     border-color: black;
 }
 
+select {
+    cursor: pointer;
+    border: 0;
+    margin: .5rem 0;
+    padding: .5rem;
+    width: 16rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+#btn-start-game {
+    grid-column: span 2;
+}
+
 #btn-start-game,
 #btn-new-round {
     margin: 2rem auto;
+    height: 2rem;
     align-self: center;
 }
 
