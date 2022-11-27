@@ -179,7 +179,7 @@ select {
     grid-template-rows: repeat(3, 100px);
     justify-content: center;
     gap: 2px;
-    background-color: var(--clr-black);
+    background-color: var(--clr-dark-gray);
 }
 
 .cell {
@@ -187,6 +187,7 @@ select {
     display: grid;
     place-items: center;
     font-size: 3rem;
+    color: var(--clr-dark-gray);
     background-color: var(--clr-white);
 }
 
