@@ -9,14 +9,9 @@ const board = (function() {
 })()
 
 const game = (function() {
-    let current = null
-    let players = []
     let winner = null
-
-    const createPlayer = (name, isX) => ({ name, marker: isX ? "X" : "O", score: 0 })
-    const getPlayer = (id) => players[id]
-    const getCurrent = () => current
-    const getWinner = () => winner
+    const player = { name: "Player", marker: "X", score: 0 }
+    const computer = { name: "Computer", marker: "O", score: 0 }
 
     const winConditions = [
         // rows:
@@ -39,45 +34,58 @@ const game = (function() {
 
     const isOver = () => hasWinner() || board.isFull()
 
-    const initialize = (name1, name2) => {
-        current = Math.round(Math.random(1))
-        const player1 = createPlayer(name1, current === 0)
-        const player2 = createPlayer(name2, current === 1)
-        players = [ player1, player2 ]
-        board.initialize()
-    }
+    const initialize = () => board.initialize()
 
     const mark = (id) => {
         if (isOver() || board.getCell(id)) {
             return
         }
 
-        board.mark(id, players[current].marker)
+        board.mark(id, player.marker)
 
         if (hasWinner()) {
-            winner = players[current]
+            winner = player
+            winner.score++
+        } else {
+            makeComputerMove()
+        }
+    }
+
+    const makeComputerMove = () => {
+        let id
+
+        do {
+            id = Math.round(Math.random() * 8)
+        } while (board.getCell(id))
+
+        board.mark(id, computer.marker)
+
+        if (hasWinner()) {
+            winner = computer
             winner.score++
         }
-
-        current = (current + 1) % 2
     }
 
     const reset = () => {
         board.initialize()
-        for (let i = 0; i <= 1; i++) {
-            players[i].marker = players[i].marker === "X" ? "O" : "X"
+        const swap = player.marker
+        player.marker = computer.marker
+        computer.marker = swap
+
+        if (computer.marker === "X") {
+            makeComputerMove()
         }
     }
 
     return {
         initialize,
         reset,
-        getCurrent,
-        getPlayer,
         mark,
         isOver,
         hasWinner,
-        getWinner,
+        winner,
+        player,
+        computer
     }
 })()
 
@@ -99,27 +107,18 @@ const display = (function() {
     })
 
     const setNames = () => {
-        for (let i = 0; i <= 1; i++) {
-            document.querySelector("#name-" + i).textContent = game.getPlayer(i).name
-        }
+        document.querySelector("#name-player").textContent = game.player.name
+        document.querySelector("#name-computer").textContent = game.computer.name
     }
 
     const updateMarks = () => {
-        for (let i = 0; i <= 1; i++) {
-            document.querySelector("#marker-" + i).textContent = game.getPlayer(i).marker
-        }
+        document.querySelector("#marker-player").textContent = game.player.marker
+        document.querySelector("#marker-computer").textContent = game.computer.marker
     }
 
     const updateScores = () => {
-        for (let i = 0; i <= 1; i++) {
-            document.querySelector("#score-" + i).textContent = game.getPlayer(i).score
-        }
-    }
-
-    const updateCurrent = () => {
-        for (let i = 0; i <= 1; i++) {
-            document.querySelector("#name-" + i).classList.toggle("current")
-        }
+        document.querySelector("#score-player").textContent = game.player.score
+        document.querySelector("#score-computer").textContent = game.computer.score
     }
 
     const showBoard = () => {
@@ -138,8 +137,6 @@ const display = (function() {
     }
 
     const update = () => {
-        updateCurrent()
-
         for (const cell of cells) {
             const id = cell.getAttribute('data-id')
             cell.textContent = board.getCell(id)
@@ -151,6 +148,6 @@ const display = (function() {
         }
     }
 
-    game.initialize("Player 1", "Player 2")
+    game.initialize()
     showBoard()
 })()
