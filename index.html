@@ -14,33 +14,29 @@
     </header>
     <main>
 
-        <section class="sec-game">
+        <div class="game-state">
+            <span class="marker" id="marker-0"></span>
+            <span class="name" id="name-0"></span>
+            <span class="score" id="score-0"></span>
+            <span>:</span>
+            <span class="score" id="score-1"></span>
+            <span class="name" id="name-1"></span>
+            <span class="marker" id="marker-1"></span>
+        </div>
 
-            <div class="game-state">
-                <span class="marker" id="marker-0"></span>
-                <span class="name" id="name-0"></span>
-                <span class="score" id="score-0"></span>
-                <span>:</span>
-                <span class="score" id="score-1"></span>
-                <span class="name" id="name-1"></span>
-                <span class="marker" id="marker-1"></span>
-            </div>
+        <div class="board">
+            <span class="cell" data-id="0"></span>
+            <span class="cell" data-id="1"></span>
+            <span class="cell" data-id="2"></span>
+            <span class="cell" data-id="3"></span>
+            <span class="cell" data-id="4"></span>
+            <span class="cell" data-id="5"></span>
+            <span class="cell" data-id="6"></span>
+            <span class="cell" data-id="7"></span>
+            <span class="cell" data-id="8"></span>
+        </div>
 
-            <div class="board">
-                <span class="cell" data-id="0"></span>
-                <span class="cell" data-id="1"></span>
-                <span class="cell" data-id="2"></span>
-                <span class="cell" data-id="3"></span>
-                <span class="cell" data-id="4"></span>
-                <span class="cell" data-id="5"></span>
-                <span class="cell" data-id="6"></span>
-                <span class="cell" data-id="7"></span>
-                <span class="cell" data-id="8"></span>
-            </div>
-
-            <button class="hidden" id="btn-new-round">new round</button>
-
-        </section>
+        <button class="hidden" id="btn-new-round">new round</button>
 
     </main>
 </body>
