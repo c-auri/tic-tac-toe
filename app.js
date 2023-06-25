@@ -10,7 +10,7 @@ const board = (function() {
 
 const game = (function() {
     let current = null
-    let players = {}
+    let players = []
     let winner = null
 
     const createPlayer = (name, isX) => ({ name, marker: isX ? "X" : "O", score: 0 })
@@ -40,10 +40,10 @@ const game = (function() {
     const isOver = () => hasWinner() || board.isFull()
 
     const initialize = (name1, name2) => {
-        current = Math.round(Math.random(1)) + 1
-        const player1 = createPlayer(name1, current === 1)
-        const player2 = createPlayer(name2, current === 2)
-        players = { "1": player1, "2": player2 }
+        current = Math.round(Math.random(1))
+        const player1 = createPlayer(name1, current === 0)
+        const player2 = createPlayer(name2, current === 1)
+        players = [ player1, player2 ]
         board.initialize()
     }
 
@@ -59,12 +59,12 @@ const game = (function() {
             winner.score++
         }
 
-        current = current === 1 ? 2 : 1
+        current = (current + 1) % 2
     }
 
     const reset = () => {
         board.initialize()
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 0; i <= 1; i++) {
             players[i].marker = players[i].marker === "X" ? "O" : "X"
         }
     }
@@ -99,7 +99,7 @@ const display = (function() {
     })
 
     const setNames = () => {
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 0; i <= 1; i++) {
             document.querySelector("#name-" + i).textContent = game.getPlayer(i).name
         }
     }
@@ -109,19 +109,19 @@ const display = (function() {
     }
 
     const updateMarks = () => {
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 0; i <= 1; i++) {
             document.querySelector("#marker-" + i).textContent = game.getPlayer(i).marker
         }
     }
 
     const updateScores = () => {
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 0; i <= 1; i++) {
             document.querySelector("#score-" + i).textContent = game.getPlayer(i).score
         }
     }
 
     const updateCurrent = () => {
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 0; i <= 1; i++) {
             document.querySelector("#name-" + i).classList.toggle("current")
         }
     }
