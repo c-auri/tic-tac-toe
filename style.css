@@ -40,69 +40,6 @@ h1 {
     font-weight: bold;
 }
 
-.game-settings {
-    border: 1px solid var(--clr-dark-gray);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-    gap: 4rem 0;
-}
-
-input[type="radio"] {
-    display: none;
-}
-
-input[type="radio"] + label {
-    cursor: pointer;
-    width: 100%;
-    padding: .5rem 1rem;
-    letter-spacing: normal;
-    font-weight: 400;
-    color: #ccc;
-    background-color: #666;
-}
-
-input:checked + label {
-    font-weight: bold;
-    color: black;
-    background-color: var(--clr-white);
-}
-
-#pvp:checked ~ #field-difficulty {
-    display: none;
-}
-
-#pvc:checked ~ #field-player-2 {
-    display: none;
-}
-
-.form-field {
-    height: 4rem;
-    grid-column: span 2;
-    display: grid;
-}
-
-.form-field label {
-    color: var(--clr-medium-gray);
-    font-weight: bold;
-    font-size: .8rem;
-    letter-spacing: .125rem;
-}
-
-input[type="text"] {
-    padding: 0;
-    border: 0;
-    border-bottom: 1px solid var(--clr-medium-gray);
-    width: 16rem;
-    line-height: 2rem;
-    font-family: var(--ff-monospace);
-}
-
-input[type="text"]:focus {
-    outline: none;
-    border-color: var(--clr-black);
-}
-
 select {
     cursor: pointer;
     border: 0;

@@ -8,97 +8,6 @@ const board = (function() {
     return { initialize, getCell, mark, isFull }
 })()
 
-const display = (function() {
-    const secGameSettings = document.querySelector(".sec-game-settings")
-    const secGame = document.querySelector(".sec-game")
-    const btnStartGame = document.querySelector("#btn-start-game")
-    const btnNewRound = document.querySelector('#btn-new-round')
-    const cells = [...document.querySelectorAll(".cell")]
-
-    toggleHidden = (...elements) => {
-        for (const element of elements) {
-            element.classList.toggle("hidden")
-        }
-    }
-
-    btnStartGame.addEventListener("click", (e) => {
-        e.preventDefault()
-        const inputName1 =  document.querySelector("#input-name-1")
-        const inputName2 = document.querySelector("#input-name-2")
-        const name1 = inputName1.value.length > 0 ? inputName1.value : inputName1.placeholder
-        const name2 = inputName2.value.length > 0 ? inputName2.value : inputName2.placeholder
-        game.initialize(name1, name2)
-        showBoard()
-    })
-
-    btnNewRound.addEventListener("click", () => {
-        game.reset()
-        updateMarks()
-        update()
-        toggleHidden(btnNewRound)
-    })
-
-    const setNames = () => {
-        for (let i = 1; i <= 2; i++) {
-            document.querySelector("#name-" + i).textContent = game.getPlayer(i).name
-        }
-    }
-
-    const setCurrent = () => {
-        document.querySelector("#name-" + game.getCurrent()).classList.add("current")
-    }
-
-    const updateMarks = () => {
-        for (let i = 1; i <= 2; i++) {
-            document.querySelector("#marker-" + i).textContent = game.getPlayer(i).marker
-        }
-    }
-
-    const updateScores = () => {
-        for (let i = 1; i <= 2; i++) {
-            document.querySelector("#score-" + i).textContent = game.getPlayer(i).score
-        }
-    }
-
-    const updateCurrent = () => {
-        for (let i = 1; i <= 2; i++) {
-            document.querySelector("#name-" + i).classList.toggle("current")
-        }
-    }
-
-    const showBoard = () => {
-        toggleHidden(btnStartGame, secGameSettings, secGame)
-
-        setNames()
-        setCurrent()
-        updateMarks()
-        updateScores()
-
-        for (const cell of cells) {
-            cell.textContent = ""
-            cell.addEventListener("click", (e) => {
-                const id = e.target.getAttribute("data-id")
-                game.mark(id)
-                update()
-            })
-        }
-    }
-
-    const update = () => {
-        updateCurrent()
-
-        for (const cell of cells) {
-            const id = cell.getAttribute('data-id')
-            cell.textContent = board.getCell(id)
-        }
-
-        if (game.isOver()) {
-            updateScores()
-            btnNewRound.classList.remove("hidden")
-        }
-    }
-})()
-
 const game = (function() {
     let current = null
     let players = {}
@@ -170,4 +79,83 @@ const game = (function() {
         hasWinner,
         getWinner,
     }
+})()
+
+const display = (function() {
+    const btnNewRound = document.querySelector('#btn-new-round')
+    const cells = [...document.querySelectorAll(".cell")]
+
+    toggleHidden = (...elements) => {
+        for (const element of elements) {
+            element.classList.toggle("hidden")
+        }
+    }
+
+    btnNewRound.addEventListener("click", () => {
+        game.reset()
+        updateMarks()
+        update()
+        toggleHidden(btnNewRound)
+    })
+
+    const setNames = () => {
+        for (let i = 1; i <= 2; i++) {
+            document.querySelector("#name-" + i).textContent = game.getPlayer(i).name
+        }
+    }
+
+    const setCurrent = () => {
+        document.querySelector("#name-" + game.getCurrent()).classList.add("current")
+    }
+
+    const updateMarks = () => {
+        for (let i = 1; i <= 2; i++) {
+            document.querySelector("#marker-" + i).textContent = game.getPlayer(i).marker
+        }
+    }
+
+    const updateScores = () => {
+        for (let i = 1; i <= 2; i++) {
+            document.querySelector("#score-" + i).textContent = game.getPlayer(i).score
+        }
+    }
+
+    const updateCurrent = () => {
+        for (let i = 1; i <= 2; i++) {
+            document.querySelector("#name-" + i).classList.toggle("current")
+        }
+    }
+
+    const showBoard = () => {
+        setNames()
+        setCurrent()
+        updateMarks()
+        updateScores()
+
+        for (const cell of cells) {
+            cell.textContent = ""
+            cell.addEventListener("click", (e) => {
+                const id = e.target.getAttribute("data-id")
+                game.mark(id)
+                update()
+            })
+        }
+    }
+
+    const update = () => {
+        updateCurrent()
+
+        for (const cell of cells) {
+            const id = cell.getAttribute('data-id')
+            cell.textContent = board.getCell(id)
+        }
+
+        if (game.isOver()) {
+            updateScores()
+            btnNewRound.classList.remove("hidden")
+        }
+    }
+
+    game.initialize("Player 1", "Player 2")
+    showBoard()
 })()

@@ -14,37 +14,7 @@
     </header>
     <main>
 
-        <section class="sec-game-settings">
-            <form class="game-settings">
-
-                <input type="radio" name="game-mode" id="pvp" checked>
-                <label for="pvp">Player vs. Player</label>
-                <input type="radio" name="game-mode" id="pvc">
-                <label for="pvc">Player vs. Computer</label>
-
-                <div class="form-field">
-                    <label for="player-1">Name of Player 1:</label>
-                    <input type="text" name="input-name-1" id="input-name-1" placeholder="Player 1" maxlength="10">
-                </div>
-
-                <div class="form-field" id="field-player-2">
-                    <label for="player-2">Name of Player 2:</label>
-                    <input type="text" name="input-name-2" id="input-name-2" placeholder="Player 2" maxlength="10">
-                </div>
-
-                <div class="form-field" id="field-difficulty">
-                    <label for="difficulty">Computer Difficulty:</label>
-                    <select name="difficulty" id="select-difficulty">
-                        <option value="normal">Normal</option>
-                    </select>
-                </div>
-
-                <button id="btn-start-game">start game</button>
-
-            </form>
-        </section>
-
-        <section class="sec-game hidden">
+        <section class="sec-game">
 
             <div class="game-state">
                 <span class="marker" id="marker-1"></span>
