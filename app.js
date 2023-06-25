@@ -104,10 +104,6 @@ const display = (function() {
         }
     }
 
-    const setCurrent = () => {
-        document.querySelector("#name-" + game.getCurrent()).classList.add("current")
-    }
-
     const updateMarks = () => {
         for (let i = 0; i <= 1; i++) {
             document.querySelector("#marker-" + i).textContent = game.getPlayer(i).marker
@@ -128,7 +124,6 @@ const display = (function() {
 
     const showBoard = () => {
         setNames()
-        setCurrent()
         updateMarks()
         updateScores()
 

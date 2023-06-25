@@ -87,18 +87,6 @@ select {
     content: ')';
 }
 
-.name.current::after {
-    content: '^';
-    position: absolute;
-    bottom: -1.5rem;
-    right: 0;
-}
-
-#name-2.current::after {
-    right: unset;
-    left: 0;
-}
-
 .board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
