@@ -1,14 +1,15 @@
 :root {
     --clr-white: white;
     --clr-black: black;
-    --clr-light-gray: #ccc;
-    --clr-medium-gray: #999;
-    --clr-dark-gray: #666;
-    --ff-monospace: monospace;
+    --clr-light-gray: whitesmoke;
+    --clr-medium-gray: gainsboro;
+    --clr-dark-gray: gray;
+    --ff-monospace: sans-serif;
 }
 
 * {
     box-sizing: border-box;
+    color: var(--clr-dark-gray);
 }
 
 
@@ -41,29 +42,12 @@ h1 {
     font-weight: bold;
 }
 
-select {
-    cursor: pointer;
-    border: 0;
-    margin: .5rem 0;
-    padding: .5rem;
-    width: 16rem;
-    font-size: 1rem;
-    color: var(--clr-dark-gray);
-}
-
-#btn-new-round {
-    margin: 2rem auto;
-    height: 2rem;
-    align-self: center;
-}
-
 .game-state {
     margin-bottom: 2rem;
     display: grid;
     grid-template-columns: auto 1fr auto auto auto 1fr auto;
     gap: 1rem;
     font-size: 1.2rem;
-    color: var(--clr-black);
 }
 
 .name {
@@ -71,12 +55,8 @@ select {
     position: relative;
 }
 
-#name-computer {
+#name-player {
     text-align: right;
-}
-
-.marker {
-    color: var(--clr-dark-gray);
 }
 
 .marker::before {
@@ -114,11 +94,16 @@ button {
     cursor: pointer;
     font-size: .8rem;
     font-weight: bold;
-    color: var(--clr-medium-gray);
 }
 
 button:hover {
     font-size: .9rem;
+}
+
+#btn-new-round {
+    margin: 2rem auto;
+    height: 2rem;
+    align-self: center;
 }
 
 .hidden {
